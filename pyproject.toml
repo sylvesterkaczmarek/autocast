@@ -122,6 +122,10 @@ convention = "google"
 [tool.ruff.lint.per-file-ignores]
 "tests/*.py" = ["D"]
 
+[tool.uv]
+# AutoCast does not use AutoEmulate's evidence API, which requires harmonic.
+exclude-dependencies = ["harmonic"]
+
 # https://docs.astral.sh/uv/guides/integration/pytorch/#using-a-pytorch-index
 # CUDA wheels (used automatically on GH if available)
 [[tool.uv.index]]
@@ -130,7 +134,7 @@ url = "https://download.pytorch.org/whl/cu126"
 explicit = true
 
 [tool.uv.sources]
-autoemulate = { git = "https://github.com/alan-turing-institute/autoemulate.git" }
+autoemulate = { git = "https://github.com/alan-turing-institute/autoemulate.git", branch = "main" }
 autosim = { git = "https://github.com/alan-turing-institute/autosim.git" }
 torch = [
     { index = "pytorch-cu126", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
